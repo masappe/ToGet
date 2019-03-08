@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RealmSwift
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        //textfield.textviewがキーボードと被らないようにする
+         IQKeyboardManager.shared.enable = true
+        //Realmのクラス構造を変更したらschemaVersionを変更する
+        let config = Realm.Configuration(schemaVersion: 4)
+        Realm.Configuration.defaultConfiguration = config
         return true
     }
 
