@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 notificationTime.second = 0
                 trigger = UNCalendarNotificationTrigger(dateMatching: notificationTime, repeats: false)
                 // 通知内容の設定
-                content.title = "単語テスト"
+                content.title = "単語チェック"
                 content.body = "単語を覚えてから１日が経ちました"
                 content.sound = UNNotificationSound.default
                 
@@ -88,8 +88,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
             }
             //覚えて１週間後の設定
-            
+            if data.dateStatus == "week"{
+                // トリガー設定
+                notificationTime.year = data.afterWeek[0]
+                notificationTime.month = data.afterWeek[1]
+                notificationTime.day = data.afterWeek[2]
+                notificationTime.hour = data.afterWeek[3]
+                notificationTime.minute = data.afterWeek[4]
+                notificationTime.second = 0
+                trigger = UNCalendarNotificationTrigger(dateMatching: notificationTime, repeats: false)
+                // 通知内容の設定
+                content.title = "単語チェック"
+                content.body = "単語を覚えてから１週間が経ちました"
+                content.sound = UNNotificationSound.default
+                
+                // 通知スタイルを指定
+                //identifierは通知のon,offの時に必要になる
+                let request = UNNotificationRequest(identifier: data.word, content: content, trigger: trigger)
+                // 通知をセット
+                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+
+            }
             //覚えて１ヶ月後の設定
+            if data.dateStatus == "month"{
+                // トリガー設定
+                notificationTime.year = data.afterMonth[0]
+                notificationTime.month = data.afterMonth[1]
+                notificationTime.day = data.afterMonth[2]
+                notificationTime.hour = data.afterMonth[3]
+                notificationTime.minute = data.afterMonth[4]
+                notificationTime.second = 0
+                trigger = UNCalendarNotificationTrigger(dateMatching: notificationTime, repeats: false)
+                // 通知内容の設定
+                content.title = "単語チェック"
+                content.body = "単語を覚えてから1ヶ月が経ちました"
+                content.sound = UNNotificationSound.default
+                
+                // 通知スタイルを指定
+                //identifierは通知のon,offの時に必要になる
+                let request = UNNotificationRequest(identifier: data.word, content: content, trigger: trigger)
+                // 通知をセット
+                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+
+            }
         }
     }
     
