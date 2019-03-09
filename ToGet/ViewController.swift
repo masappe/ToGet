@@ -5,7 +5,6 @@
 //  Created by Masato Hayakawa on 2019/02/26.
 //  Copyright © 2019 masappe. All rights reserved.
 //
-
 import UIKit
 import RealmSwift
 
@@ -18,7 +17,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var tableView: UITableView!
     //init,notRememberWord,rememberWord,endWord
     var status = "init"
-//    var wordArray:[String] = []
+    //    var wordArray:[String] = []
     var passWord: String!
     var passText: String!
     var notRememberWordData: Results<NotRememberWord>!
@@ -37,9 +36,9 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         print(rememberWordData)
         print(endWordData)
         
-//        for _ in 0 ... 9{
-//            wordArray.append("test")
-//        }
+        //        for _ in 0 ... 9{
+        //            wordArray.append("test")
+        //        }
         tableView.delegate = self
         tableView.dataSource = self
         tabBar.delegate = self
@@ -48,22 +47,22 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     //tableview内のセルをたっぷしたらwordviewに画面遷移
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if status == "init" || status == "notRememberWord" {
-//            passWord = notRememberWordData[indexPath.row].word
-//            passText = notRememberWordData[indexPath.row].wordMean
+            //            passWord = notRememberWordData[indexPath.row].word
+            //            passText = notRememberWordData[indexPath.row].wordMean
             PassData.shared.status = "notRememberWord"
             PassData.shared.indexPath = indexPath.row
             PassData.shared.word = notRememberWordData[indexPath.row].word
             PassData.shared.wordMean = notRememberWordData[indexPath.row].wordMean
         }else if status == "rememberWord"{
-//            passWord = rememberWordData[indexPath.row].word
-//            passText = rememberWordData[indexPath.row].wordMean
+            //            passWord = rememberWordData[indexPath.row].word
+            //            passText = rememberWordData[indexPath.row].wordMean
             PassData.shared.status = "rememberWord"
             PassData.shared.indexPath = indexPath.row
             PassData.shared.word = rememberWordData[indexPath.row].word
             PassData.shared.wordMean = rememberWordData[indexPath.row].wordMean
         }else if status == "endWord"{
-//            passWord = endWordData[indexPath.row].word
-//            passText = endWordData[indexPath.row].wordMean
+            //            passWord = endWordData[indexPath.row].word
+            //            passText = endWordData[indexPath.row].wordMean
             PassData.shared.status = "endWord"
             PassData.shared.indexPath = indexPath.row
             PassData.shared.word = endWordData[indexPath.row].word
@@ -80,10 +79,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             addWordViewController.tableViewDelegate = self
         }
         //WordViewController
-//        if segue.identifier == "toWord"{
-//            let wordViewController = segue.destination as! WordViewController
-//            wordViewController.getWord = passWord
-//            wordViewController.getText = passText
+        //        if segue.identifier == "toWord"{
+        //            let wordViewController = segue.destination as! WordViewController
+        //            wordViewController.getWord = passWord
+        //            wordViewController.getText = passText
     }
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.tag {
@@ -121,7 +120,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         let delete = UIContextualAction(style: .destructive, title: "削除", handler: {(action, sourceView, completionHandler) in
             //なんか必要
             completionHandler(true)
-           //データとセルの削除
+            //データとセルの削除
             let realm = try! Realm()
             if self.status == "init" || self.status == "notRememberWord" {
                 let data = self.notRememberWordData[indexPath.row]
@@ -151,7 +150,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             rememberWordData.word = notRememberWordData.word
             rememberWordData.wordMean = notRememberWordData.wordMean
             //日付の更新
-            rememberWordData.created = Date()
+            rememberWordData.created = Date(timeIntervalSinceNow: 9*60*60)
             try! realm.write {
                 realm.add(rememberWordData)
                 realm.delete(notRememberWordData)
@@ -194,6 +193,5 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         }
         return cell!
     }
-
+    
 }
-

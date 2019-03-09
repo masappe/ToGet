@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		464FCB0D83D6C0895655137E /* Pods_ToGetTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FFBB1AFF352033938CADAF /* Pods_ToGetTests.framework */; };
 		4F3903DA7A51D8340CC3B4F7 /* Pods_ToGet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BB40BC0A826A546BF19473 /* Pods_ToGet.framework */; };
+		693149FE22335D7000045EEE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693149FD22335D7000045EEE /* ViewController.swift */; };
 		698A81082224CA4D00A37E02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A81072224CA4D00A37E02 /* AppDelegate.swift */; };
-		698A810A2224CA4D00A37E02 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A81092224CA4D00A37E02 /* ViewController.swift */; };
 		698A810D2224CA4D00A37E02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 698A810B2224CA4D00A37E02 /* Main.storyboard */; };
 		698A810F2224CA5300A37E02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 698A810E2224CA5300A37E02 /* Assets.xcassets */; };
 		698A81122224CA5300A37E02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 698A81102224CA5300A37E02 /* LaunchScreen.storyboard */; };
@@ -43,9 +43,9 @@
 		01DBF98D3680539275DAA99E /* Pods-ToGetUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToGetUITests.release.xcconfig"; path = "Target Support Files/Pods-ToGetUITests/Pods-ToGetUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2403AB7920AA62B51F212C97 /* Pods-ToGetTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToGetTests.release.xcconfig"; path = "Target Support Files/Pods-ToGetTests/Pods-ToGetTests.release.xcconfig"; sourceTree = "<group>"; };
 		65BB40BC0A826A546BF19473 /* Pods_ToGet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToGet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		693149FD22335D7000045EEE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		698A81042224CA4D00A37E02 /* ToGet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToGet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		698A81072224CA4D00A37E02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		698A81092224CA4D00A37E02 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		698A810C2224CA4D00A37E02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		698A810E2224CA5300A37E02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		698A81112224CA5300A37E02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -131,9 +131,9 @@
 			isa = PBXGroup;
 			children = (
 				698A81072224CA4D00A37E02 /* AppDelegate.swift */,
-				698A81092224CA4D00A37E02 /* ViewController.swift */,
 				698A81372225866200A37E02 /* Realm.swift */,
 				698A810B2224CA4D00A37E02 /* Main.storyboard */,
+				693149FD22335D7000045EEE /* ViewController.swift */,
 				698A8139222591A800A37E02 /* AddWordViewController.swift */,
 				698A81352224CDC800A37E02 /* WordViewController.swift */,
 				698A810E2224CA5300A37E02 /* Assets.xcassets */,
@@ -408,9 +408,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				693149FE22335D7000045EEE /* ViewController.swift in Sources */,
 				698A813A222591A800A37E02 /* AddWordViewController.swift in Sources */,
 				698A81362224CDC800A37E02 /* WordViewController.swift in Sources */,
-				698A810A2224CA4D00A37E02 /* ViewController.swift in Sources */,
 				698A81082224CA4D00A37E02 /* AppDelegate.swift in Sources */,
 				698A81382225866200A37E02 /* Realm.swift in Sources */,
 			);
