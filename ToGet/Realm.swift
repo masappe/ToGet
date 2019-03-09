@@ -29,50 +29,85 @@ class RememberWord: Object {
     //１日後の値の取得
     //覚えたにした時にデータを作成
     func afterOneDay(){
-        let date = Date(timeInterval: 24*60*60, since: created)
         let calendar = Calendar.current
-        let year = calendar.component(.year, from: date)
-        let month = calendar.component(.month, from: date)
-        let day = calendar.component(.day, from: date)
-        let hour = calendar.component(.hour, from: date) - 9
-        let minute = calendar.component(.minute, from: date)
+        let comps = DateComponents(day: 1)
+        let nextDay = calendar.date(byAdding: comps, to: created)
+        let year = calendar.component(.year, from: nextDay!)
+        let month = calendar.component(.month, from: nextDay!)
+        let day = calendar.component(.day, from: nextDay!)
+        let hour = calendar.component(.hour, from: nextDay!)
+        let minute = calendar.component(.minute, from: nextDay!)
         let dateArray = [year,month,day,hour,minute]
         for i in dateArray{
             tomorrow.append(i)
         }
+        dateStatus = "day"
     }
+    
+    func isAfterOneDay() -> Bool{
+        let calendar = Calendar.current
+        let comps = DateComponents(day: 1)
+        let afterOneDay = calendar.date(byAdding: comps, to: created)
+        let today = Date(timeIntervalSinceNow: 9*60*60)
+        if afterOneDay! <= today{
+            return true
+        }
+        return false
+    }
+
     //一週間後の値の取得
     //テストで正解したらデータを作成
     func afterOneWeek(){
-        let date = Date(timeInterval: 7*24*60*60, since: created)
         let calendar = Calendar.current
-        let year = calendar.component(.year, from: date)
-        let month = calendar.component(.month, from: date)
-        let day = calendar.component(.day, from: date)
-        let hour = calendar.component(.hour, from: date) - 9
-        let minute = calendar.component(.minute, from: date)
+        let comps = DateComponents(day: 7)
+        let afterOneWeek = calendar.date(byAdding: comps, to: created)
+        let year = calendar.component(.year, from: afterOneWeek!)
+        let month = calendar.component(.month, from: afterOneWeek!)
+        let day = calendar.component(.day, from: afterOneWeek!)
+        let hour = calendar.component(.hour, from: afterOneWeek!)
+        let minute = calendar.component(.minute, from: afterOneWeek!)
         let dateArray = [year,month,day,hour,minute]
         for i in dateArray{
             afterWeek.append(i)
         }
+        dateStatus = "week"
+    }
+    func isAfterOneWeek() -> Bool{
+        let calendar = Calendar.current
+        let comps = DateComponents(day: 7)
+        let afterOneWeek = calendar.date(byAdding: comps, to: created)
+        let today = Date(timeIntervalSinceNow: 9*60*60)
+        if afterOneWeek! <= today{
+            return true
+        }
+        return false
     }
     //一ヶ月後の値の取得
     //テストで正解したらデータを作成
     func afterOneMonth(){
         let calendar = Calendar.current
-        let year = calendar.component(.year, from: created)
-        var month = calendar.component(.month, from: created) + 1
-        if month == 12{
-            month = 1
-        }
-        let day = calendar.component(.day, from: created)
-        let hour = calendar.component(.hour, from: created) - 9
-        let minute = calendar.component(.minute, from: created)
+        let comps = DateComponents(month: 1)
+        let afterOneMonth = calendar.date(byAdding: comps, to: created)
+        let year = calendar.component(.year, from: afterOneMonth!)
+        let month = calendar.component(.month, from: afterOneMonth!)
+        let day = calendar.component(.day, from: afterOneMonth!)
+        let hour = calendar.component(.hour, from: afterOneMonth!)
+        let minute = calendar.component(.minute, from: afterOneMonth!)
         let dateArray = [year,month,day,hour,minute]
         for i in dateArray{
             afterMonth.append(i)
         }
-
+        dateStatus = "month"
+    }
+    func isAfterOneMonth() -> Bool{
+        let calendar = Calendar.current
+        let comps = DateComponents(month: 1)
+        let afterOneMonth = calendar.date(byAdding: comps, to: created)
+        let today = Date(timeIntervalSinceNow: 9*60*60)
+        if afterOneMonth! <= today{
+            return true
+        }
+        return false
     }
 
 }
@@ -93,4 +128,10 @@ class PassData{
     static let shared = PassData()
     private init(){}
 }
-
+//testのデータを格納
+class testData{
+    var testArray:[RememberWord] = []
+    
+    static let shared = testData()
+    private init(){}
+}

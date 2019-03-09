@@ -16,9 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
     var window: UIWindow?
 
-
+    //アプリ起動時
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.        //textfield.textviewがキーボードと被らないようにする
+        // Override point for customization after application launch.
+        //textfield.textviewがキーボードと被らないようにする
          IQKeyboardManager.shared.enable = true
         //Realmのクラス構造を変更したらschemaVersionを変更する
         let config = Realm.Configuration(schemaVersion: 5)
@@ -52,15 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         return true
     }
 
+    //バックグラウンドに移行する
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-    
-    // バックグラウンドに移動したら一度呼ばれる
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         //　通知設定に必要なクラスをインスタンス化
         var trigger: UNNotificationTrigger
         let content = UNMutableNotificationContent()
@@ -71,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         for data in rememberWordData{
             //覚えて１日後の設定
-            if data.dateStatus == "init"{
+            if data.dateStatus == "day"{
                 // トリガー設定
                 notificationTime.year = data.tomorrow[0]
                 notificationTime.month = data.tomorrow[1]
@@ -95,20 +91,92 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             
             //覚えて１ヶ月後の設定
         }
-        
-        
-        
-
+    }
+    
+    // バックグラウンドに移動したら
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
+    //バックグラウンドからフォアグランド
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
+    //アプリが開いたら
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
+        //アプリが開いたらチェックする単語があるかどうかの確認
+        let realm = try! Realm()
+        let rememberWordData = realm.objects(RememberWord.self).sorted(byKeyPath: "created", ascending: false)
 
+        for data in rememberWordData{
+            if data.dateStatus == "day"{
+                if data.isAfterOneDay(){
+                    testData.shared.testArray.append(data)
+                }
+            }else if data.dateStatus == "week"{
+                if data.isAfterOneWeek(){
+                    testData.shared.testArray.append(data)
+                }
+            }else if data.dateStatus == "month"{
+                if data.isAfterOneMonth(){
+                    testData.shared.testArray.append(data)
+                }
+            }
+        }
+        //重複のない配列を作成
+        let orderedSet = NSOrderedSet(array: testData.shared.testArray)
+        testData.shared.testArray.removeAll()
+        //重複のないtestArrayに変更
+        testData.shared.testArray = orderedSet.array as! [RememberWord]
+
+        //tabbarのバッチ
+        if testData.shared.testArray.count >= 0{
+            if let tabBarController = self.window?.rootViewController as? ViewController {
+                tabBarController.tabBar.items![3].badgeValue = String(testData.shared.testArray.count)
+            }
+        }
+    }
+    //フォアグランドで通知が呼ばれたら
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+        //アプリが開いたらチェックする単語があるかどうかの確認
+        let realm = try! Realm()
+        let rememberWordData = realm.objects(RememberWord.self).sorted(byKeyPath: "created", ascending: false)
+        for data in rememberWordData{
+            if data.dateStatus == "day"{
+                if data.isAfterOneDay(){
+                    testData.shared.testArray.append(data)
+                }
+            }else if data.dateStatus == "week"{
+                if data.isAfterOneWeek(){
+                    testData.shared.testArray.append(data)
+                }
+            }else if data.dateStatus == "month"{
+                if data.isAfterOneMonth(){
+                    testData.shared.testArray.append(data)
+                }
+            }
+
+        }
+        //重複のない配列を作成
+        let orderedSet = NSOrderedSet(array: testData.shared.testArray)
+        testData.shared.testArray.removeAll()
+        //重複のないtestArrayに変更
+        testData.shared.testArray = orderedSet.array as! [RememberWord]
+
+        //tabbarのバッチ
+        if testData.shared.testArray.count >= 0{
+            if let tabBarController = self.window?.rootViewController as? ViewController {
+                tabBarController.tabBar.items![3].badgeValue = String(testData.shared.testArray.count)
+            }
+        }
+
+        
+    }
+    
+    //アプリ終了時
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }

@@ -11,8 +11,12 @@ import RealmSwift
 protocol TableViewControllerDelegate{
     func reloadTable()
 }
+protocol TabViewControllerDelegate {
+    func reloadTabBar()
+}
 
-class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TableViewControllerDelegate,UITabBarDelegate {
+class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,TableViewControllerDelegate,UITabBarDelegate,TabViewControllerDelegate {
+    
     
     @IBOutlet weak var tableView: UITableView!
     //init,notRememberWord,rememberWord,endWord
@@ -36,9 +40,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         print(rememberWordData)
         print(endWordData)
         
-        //        for _ in 0 ... 9{
-        //            wordArray.append("test")
-        //        }
         tableView.delegate = self
         tableView.dataSource = self
         tabBar.delegate = self
@@ -78,6 +79,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             //delegateの設定
             addWordViewController.tableViewDelegate = self
         }
+        if segue.identifier == "toCheck"{
+            let checkViewController = segue.destination as! CheckViewController
+            checkViewController.tabViewDelegate = self
+        }
         //WordViewController
         //        if segue.identifier == "toWord"{
         //            let wordViewController = segue.destination as! WordViewController
@@ -93,7 +98,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         case 3:
             endWord()
         case 4:
-            break
+            toCheck()
         default:
             break
         }
@@ -110,9 +115,21 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         status = "endWord"
         reloadTable()
     }
+    func toCheck(){
+        performSegue(withIdentifier: "toCheck", sender: nil)
+    }
     //delegateで使用，tableviewをreloadする
     func reloadTable(){
         tableView.reloadData()
+    }
+    //delegateで使用，tabbarのアイコン設定
+    func reloadTabBar(){
+        //tabbarのバッチ
+        if testData.shared.testArray.count >= 0{
+            tabBar.items![3].badgeValue = String(testData.shared.testArray.count)
+            
+        }
+
     }
     //tableviewに対する左スワイプの設定
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -151,6 +168,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             rememberWordData.wordMean = notRememberWordData.wordMean
             //日付の更新
             rememberWordData.created = Date(timeIntervalSinceNow: 9*60*60)
+            //１日後の日付を入れる
+            rememberWordData.afterOneDay()
             try! realm.write {
                 realm.add(rememberWordData)
                 realm.delete(notRememberWordData)
