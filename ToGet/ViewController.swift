@@ -21,7 +21,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var tableView: UITableView!
     //init,notRememberWord,rememberWord,endWord
     var status = "init"
-    //    var wordArray:[String] = []
     var passWord: String!
     var passText: String!
     var notRememberWordData: Results<NotRememberWord>!
@@ -36,34 +35,31 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         notRememberWordData = realm.objects(NotRememberWord.self).sorted(byKeyPath: "created",ascending: false)
         rememberWordData = realm.objects(RememberWord.self).sorted(byKeyPath: "created",ascending: false)
         endWordData = realm.objects(EndWord.self).sorted(byKeyPath: "created",ascending: false)
-        print(notRememberWordData)
-        print(rememberWordData)
-        print(endWordData)
-        
         tableView.delegate = self
         tableView.dataSource = self
         tabBar.delegate = self
         
     }
+    @IBAction func button(_ sender: Any) {
+        print(notRememberWordData)
+        print(rememberWordData)
+        print(endWordData)
+//        print(testData.shared.testArray)
+    }
+
     //tableview内のセルをたっぷしたらwordviewに画面遷移
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if status == "init" || status == "notRememberWord" {
-            //            passWord = notRememberWordData[indexPath.row].word
-            //            passText = notRememberWordData[indexPath.row].wordMean
             PassData.shared.status = "notRememberWord"
             PassData.shared.indexPath = indexPath.row
             PassData.shared.word = notRememberWordData[indexPath.row].word
             PassData.shared.wordMean = notRememberWordData[indexPath.row].wordMean
         }else if status == "rememberWord"{
-            //            passWord = rememberWordData[indexPath.row].word
-            //            passText = rememberWordData[indexPath.row].wordMean
             PassData.shared.status = "rememberWord"
             PassData.shared.indexPath = indexPath.row
             PassData.shared.word = rememberWordData[indexPath.row].word
             PassData.shared.wordMean = rememberWordData[indexPath.row].wordMean
         }else if status == "endWord"{
-            //            passWord = endWordData[indexPath.row].word
-            //            passText = endWordData[indexPath.row].wordMean
             PassData.shared.status = "endWord"
             PassData.shared.indexPath = indexPath.row
             PassData.shared.word = endWordData[indexPath.row].word
@@ -83,11 +79,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             let checkViewController = segue.destination as! CheckViewController
             checkViewController.tabViewDelegate = self
         }
-        //WordViewController
-        //        if segue.identifier == "toWord"{
-        //            let wordViewController = segue.destination as! WordViewController
-        //            wordViewController.getWord = passWord
-        //            wordViewController.getText = passText
     }
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         switch item.tag {
@@ -105,16 +96,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     }
     func notRememberWord(){
         status = "notRememberWord"
-        reloadTable()
+        reloadTabBar()
     }
     func rememberWord(){
         status = "rememberWord"
-        reloadTable()
+        reloadTabBar()
     }
     func endWord(){
         status = "endWord"
-        reloadTable()
+        reloadTabBar()
     }
+    //CheckViewControllerに遷移
     func toCheck(){
         performSegue(withIdentifier: "toCheck", sender: nil)
     }
@@ -125,10 +117,11 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     //delegateで使用，tabbarのアイコン設定
     func reloadTabBar(){
         //tabbarのバッチ
-        if testData.shared.testArray.count >= 0{
-            tabBar.items![3].badgeValue = String(testData.shared.testArray.count)
-            
+        let testData = try! Realm().objects(TestData.self)
+        if testData[0].testArray.count > 0{
+            tabBar.items![3].badgeValue = String(testData[0].testArray.count)
         }
+        reloadTable()
 
     }
     //tableviewに対する左スワイプの設定
@@ -166,8 +159,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             let rememberWordData: RememberWord = RememberWord()
             rememberWordData.word = notRememberWordData.word
             rememberWordData.wordMean = notRememberWordData.wordMean
-            //日付の更新
-            rememberWordData.created = Date(timeIntervalSinceNow: 9*60*60)
             //１日後の日付を入れる
             rememberWordData.afterOneDay()
             try! realm.write {
@@ -177,18 +168,33 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
             tableView.deleteRows(at: [indexPath], with: .right)
         })
         remember.backgroundColor = .lightGray
-        //覚えた→終了設定
+        //覚えた→覚える
+        let back = UIContextualAction(style: .destructive, title: "戻す", handler: {(action,sourceView,completionHandler) in
+            completionHandler(true)
+            let realm = try! Realm()
+            let rememberWordData = self.rememberWordData[indexPath.row]
+            let notRememberWordData: NotRememberWord = NotRememberWord()
+            notRememberWordData.word = rememberWordData.word
+            notRememberWordData.wordMean = rememberWordData.wordMean
+            try! realm.write {
+                realm.add(notRememberWordData)
+                realm.delete(rememberWordData)
+            }
+            tableView.deleteRows(at: [indexPath], with: .right)
+        })
+        back.backgroundColor = .blue
+        //終了→覚える
         
         //スワイプした時の表示を決める
         if status == "init" || status == "notRememberWord"{
             return UISwipeActionsConfiguration(actions: [delete,remember])
         }
+        if status == "rememberWord"{
+            return UISwipeActionsConfiguration(actions: [delete,back])
+        }
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
-    @IBAction func button(_ sender: Any) {
-        print(Date())
-    }
     //cellの個数を返す
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.status == "init" || self.status == "notRememberWord" {

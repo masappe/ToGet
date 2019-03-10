@@ -59,10 +59,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <tabBarItem tag="1" title="覚える" id="bgM-NA-UH2"/>
-                                    <tabBarItem tag="2" title="覚えた" id="Bje-hY-gSP"/>
-                                    <tabBarItem tag="3" title="終了" id="ceM-l8-JkE"/>
-                                    <tabBarItem tag="4" title="チェック" id="18P-An-LRH"/>
+                                    <tabBarItem tag="1" title="覚える" image="テキスト.png" id="bgM-NA-UH2"/>
+                                    <tabBarItem tag="2" title="覚えた" image="ダウンロード.png" id="Bje-hY-gSP"/>
+                                    <tabBarItem tag="3" title="終了" image="光.png" id="ceM-l8-JkE"/>
+                                    <tabBarItem tag="4" title="チェック" image="チェック.png" id="18P-An-LRH"/>
                                 </items>
                             </tabBar>
                         </subviews>
@@ -298,11 +298,19 @@
                                     <action selector="checkButton:" destination="MPu-QQ-e8b" eventType="touchUpInside" id="TZD-kR-Rpx"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CqB-wo-3J6">
+                                <rect key="frame" x="58" y="98" width="212" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6hQ-D9-ESi"/>
                     </view>
                     <connections>
+                        <outlet property="checkDateLabel" destination="CqB-wo-3J6" id="691-tz-rd4"/>
                         <outlet property="textLabel" destination="Lw8-t5-c7y" id="uGR-Il-THV"/>
                         <outlet property="wordLabel" destination="9IM-xe-6EW" id="c0x-jJ-toV"/>
                     </connections>
@@ -312,4 +320,10 @@
             <point key="canvasLocation" x="1216.8" y="1219.3403298350825"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ダウンロード.png" width="30" height="30"/>
+        <image name="チェック.png" width="30" height="30"/>
+        <image name="テキスト.png" width="30" height="30"/>
+        <image name="光.png" width="30" height="30"/>
+    </resources>
 </document>

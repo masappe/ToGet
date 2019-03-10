@@ -19,11 +19,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     //アプリ起動時
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        //textfield.textviewがキーボードと被らないようにする
-         IQKeyboardManager.shared.enable = true
         //Realmのクラス構造を変更したらschemaVersionを変更する
-        let config = Realm.Configuration(schemaVersion: 5)
+        let config = Realm.Configuration(schemaVersion: 9)
         Realm.Configuration.defaultConfiguration = config
+        //testDataの作成
+        let realm = try! Realm()
+        let testdata = realm.objects(TestData.self)
+        if testdata.count == 0{
+            let testData:TestData = TestData()
+            try! realm.write {
+//                realm.deleteAll()
+                realm.add(testData)
+            }
+        }
+        //textfield.textviewがキーボードと被らないようにする
+        IQKeyboardManager.shared.enable = true
+
         //通知の許可設定
         if #available(iOS 10.0, *) {
             // iOS 10
@@ -74,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 notificationTime.day = data.tomorrow[2]
                 notificationTime.hour = data.tomorrow[3]
                 notificationTime.minute = data.tomorrow[4]
-                notificationTime.second = 0
+                notificationTime.second = data.tomorrow[5]
                 trigger = UNCalendarNotificationTrigger(dateMatching: notificationTime, repeats: false)
                 // 通知内容の設定
                 content.title = "単語チェック"
@@ -95,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 notificationTime.day = data.afterWeek[2]
                 notificationTime.hour = data.afterWeek[3]
                 notificationTime.minute = data.afterWeek[4]
-                notificationTime.second = 0
+                notificationTime.second = data.afterWeek[5]
                 trigger = UNCalendarNotificationTrigger(dateMatching: notificationTime, repeats: false)
                 // 通知内容の設定
                 content.title = "単語チェック"
@@ -117,7 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                 notificationTime.day = data.afterMonth[2]
                 notificationTime.hour = data.afterMonth[3]
                 notificationTime.minute = data.afterMonth[4]
-                notificationTime.second = 0
+                notificationTime.second = data.afterMonth[5]
                 trigger = UNCalendarNotificationTrigger(dateMatching: notificationTime, repeats: false)
                 // 通知内容の設定
                 content.title = "単語チェック"
@@ -150,34 +161,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         //アプリが開いたらチェックする単語があるかどうかの確認
         let realm = try! Realm()
         let rememberWordData = realm.objects(RememberWord.self).sorted(byKeyPath: "created", ascending: false)
+        let testData = realm.objects(TestData.self)
 
         for data in rememberWordData{
-            if data.dateStatus == "day"{
-                if data.isAfterOneDay(){
-                    testData.shared.testArray.append(data)
+            if data.dateStatus == "day" {
+                if data.isAfterOneDay() {
+                    try! realm.write {
+                        data.isDayFinish = true
+                        testData[0].testArray.append(data)
+                    }
                 }
             }else if data.dateStatus == "week"{
                 if data.isAfterOneWeek(){
-                    testData.shared.testArray.append(data)
+                    try! realm.write {
+                        data.isWeekFinish = true
+                        testData[0].testArray.append(data)
+                    }
                 }
             }else if data.dateStatus == "month"{
                 if data.isAfterOneMonth(){
-                    testData.shared.testArray.append(data)
+                    try! realm.write {
+                        data.isMonthFinish = true
+                        testData[0].testArray.append(data)
+                    }
                 }
             }
         }
-        //重複のない配列を作成
-        let orderedSet = NSOrderedSet(array: testData.shared.testArray)
-        testData.shared.testArray.removeAll()
-        //重複のないtestArrayに変更
-        testData.shared.testArray = orderedSet.array as! [RememberWord]
-
         //tabbarのバッチ
-        if testData.shared.testArray.count >= 0{
+        if testData[0].testArray.count > 0{
             if let tabBarController = self.window?.rootViewController as? ViewController {
-                tabBarController.tabBar.items![3].badgeValue = String(testData.shared.testArray.count)
+                tabBarController.tabBar.items![3].badgeValue = String(testData[0].testArray.count)
             }
         }
+
     }
     //フォアグランドで通知が呼ばれたら
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -185,36 +201,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         //アプリが開いたらチェックする単語があるかどうかの確認
         let realm = try! Realm()
         let rememberWordData = realm.objects(RememberWord.self).sorted(byKeyPath: "created", ascending: false)
+        let testData = realm.objects(TestData.self)
+        //通知の順番がおかしい
+        //なぞ
         for data in rememberWordData{
-            if data.dateStatus == "day"{
-                if data.isAfterOneDay(){
-                    testData.shared.testArray.append(data)
+            if data.dateStatus == "day" {
+                if data.isAfterOneDay() {
+                        print("start")
+                    try! realm.write {
+                        data.isDayFinish = true
+                        testData[0].testArray.append(data)
+                    }
                 }
             }else if data.dateStatus == "week"{
                 if data.isAfterOneWeek(){
-                    testData.shared.testArray.append(data)
+                    try! realm.write {
+                        data.isWeekFinish = true
+                        testData[0].testArray.append(data)
+                    }
                 }
             }else if data.dateStatus == "month"{
                 if data.isAfterOneMonth(){
-                    testData.shared.testArray.append(data)
+                    try! realm.write {
+                        data.isMonthFinish = true
+                        testData[0].testArray.append(data)
+                    }
                 }
             }
-
         }
-        //重複のない配列を作成
-        let orderedSet = NSOrderedSet(array: testData.shared.testArray)
-        testData.shared.testArray.removeAll()
-        //重複のないtestArrayに変更
-        testData.shared.testArray = orderedSet.array as! [RememberWord]
-
         //tabbarのバッチ
-        if testData.shared.testArray.count >= 0{
+        if testData[0].testArray.count > 0{
             if let tabBarController = self.window?.rootViewController as? ViewController {
-                tabBarController.tabBar.items![3].badgeValue = String(testData.shared.testArray.count)
+                tabBarController.tabBar.items![3].badgeValue = String(testData[0].testArray.count)
             }
         }
-
-        
     }
     
     //アプリ終了時

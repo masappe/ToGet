@@ -11,6 +11,15 @@
 		4F3903DA7A51D8340CC3B4F7 /* Pods_ToGet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65BB40BC0A826A546BF19473 /* Pods_ToGet.framework */; };
 		693149FE22335D7000045EEE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693149FD22335D7000045EEE /* ViewController.swift */; };
 		69314A3E2233A8DC00045EEE /* CheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69314A3D2233A8DC00045EEE /* CheckViewController.swift */; };
+		69314A612234CAD200045EEE /* テキスト.png in Resources */ = {isa = PBXBuildFile; fileRef = 69314A582234CAD100045EEE /* テキスト.png */; };
+		69314A622234CAD200045EEE /* ダウンロード.png in Resources */ = {isa = PBXBuildFile; fileRef = 69314A592234CAD100045EEE /* ダウンロード.png */; };
+		69314A632234CAD200045EEE /* チェックボックスのフリーアイコン.png in Resources */ = {isa = PBXBuildFile; fileRef = 69314A5A2234CAD100045EEE /* チェックボックスのフリーアイコン.png */; };
+		69314A642234CAD200045EEE /* セーブ.png in Resources */ = {isa = PBXBuildFile; fileRef = 69314A5B2234CAD200045EEE /* セーブ.png */; };
+		69314A652234CAD200045EEE /* 目オフ.png in Resources */ = {isa = PBXBuildFile; fileRef = 69314A5C2234CAD200045EEE /* 目オフ.png */; };
+		69314A662234CAD200045EEE /* 光.png in Resources */ = {isa = PBXBuildFile; fileRef = 69314A5D2234CAD200045EEE /* 光.png */; };
+		69314A672234CAD200045EEE /* チェック.png in Resources */ = {isa = PBXBuildFile; fileRef = 69314A5E2234CAD200045EEE /* チェック.png */; };
+		69314A682234CAD200045EEE /* 目.png in Resources */ = {isa = PBXBuildFile; fileRef = 69314A5F2234CAD200045EEE /* 目.png */; };
+		69314A692234CAD200045EEE /* チェックシートのアイコン.png in Resources */ = {isa = PBXBuildFile; fileRef = 69314A602234CAD200045EEE /* チェックシートのアイコン.png */; };
 		698A81082224CA4D00A37E02 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A81072224CA4D00A37E02 /* AppDelegate.swift */; };
 		698A810D2224CA4D00A37E02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 698A810B2224CA4D00A37E02 /* Main.storyboard */; };
 		698A810F2224CA5300A37E02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 698A810E2224CA5300A37E02 /* Assets.xcassets */; };
@@ -46,6 +55,15 @@
 		65BB40BC0A826A546BF19473 /* Pods_ToGet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToGet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		693149FD22335D7000045EEE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		69314A3D2233A8DC00045EEE /* CheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckViewController.swift; sourceTree = "<group>"; };
+		69314A582234CAD100045EEE /* テキスト.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "テキスト.png"; path = "../../../../アイコン/テキスト.png"; sourceTree = "<group>"; };
+		69314A592234CAD100045EEE /* ダウンロード.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ダウンロード.png"; path = "../../../../アイコン/ダウンロード.png"; sourceTree = "<group>"; };
+		69314A5A2234CAD100045EEE /* チェックボックスのフリーアイコン.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "チェックボックスのフリーアイコン.png"; path = "../../../../アイコン/チェックボックスのフリーアイコン.png"; sourceTree = "<group>"; };
+		69314A5B2234CAD200045EEE /* セーブ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "セーブ.png"; path = "../../../../アイコン/セーブ.png"; sourceTree = "<group>"; };
+		69314A5C2234CAD200045EEE /* 目オフ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "目オフ.png"; path = "../../../../アイコン/目オフ.png"; sourceTree = "<group>"; };
+		69314A5D2234CAD200045EEE /* 光.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "光.png"; path = "../../../../アイコン/光.png"; sourceTree = "<group>"; };
+		69314A5E2234CAD200045EEE /* チェック.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "チェック.png"; path = "../../../../アイコン/チェック.png"; sourceTree = "<group>"; };
+		69314A5F2234CAD200045EEE /* 目.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "目.png"; path = "../../../../アイコン/目.png"; sourceTree = "<group>"; };
+		69314A602234CAD200045EEE /* チェックシートのアイコン.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "チェックシートのアイコン.png"; path = "../../../../アイコン/チェックシートのアイコン.png"; sourceTree = "<group>"; };
 		698A81042224CA4D00A37E02 /* ToGet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToGet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		698A81072224CA4D00A37E02 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		698A810C2224CA4D00A37E02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,6 +125,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		69314A3F2234AFC800045EEE /* アイコン */ = {
+			isa = PBXGroup;
+			children = (
+				69314A5B2234CAD200045EEE /* セーブ.png */,
+				69314A592234CAD100045EEE /* ダウンロード.png */,
+				69314A5E2234CAD200045EEE /* チェック.png */,
+				69314A602234CAD200045EEE /* チェックシートのアイコン.png */,
+				69314A5A2234CAD100045EEE /* チェックボックスのフリーアイコン.png */,
+				69314A582234CAD100045EEE /* テキスト.png */,
+				69314A5D2234CAD200045EEE /* 光.png */,
+				69314A5F2234CAD200045EEE /* 目.png */,
+				69314A5C2234CAD200045EEE /* 目オフ.png */,
+			);
+			path = "アイコン";
+			sourceTree = "<group>";
+		};
 		698A80FB2224CA4D00A37E02 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +166,7 @@
 		698A81062224CA4D00A37E02 /* ToGet */ = {
 			isa = PBXGroup;
 			children = (
+				69314A3F2234AFC800045EEE /* アイコン */,
 				698A81072224CA4D00A37E02 /* AppDelegate.swift */,
 				698A81372225866200A37E02 /* Realm.swift */,
 				698A810B2224CA4D00A37E02 /* Main.storyboard */,
@@ -285,9 +320,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69314A682234CAD200045EEE /* 目.png in Resources */,
 				698A81122224CA5300A37E02 /* LaunchScreen.storyboard in Resources */,
+				69314A672234CAD200045EEE /* チェック.png in Resources */,
+				69314A622234CAD200045EEE /* ダウンロード.png in Resources */,
 				698A810F2224CA5300A37E02 /* Assets.xcassets in Resources */,
+				69314A642234CAD200045EEE /* セーブ.png in Resources */,
 				698A810D2224CA4D00A37E02 /* Main.storyboard in Resources */,
+				69314A632234CAD200045EEE /* チェックボックスのフリーアイコン.png in Resources */,
+				69314A662234CAD200045EEE /* 光.png in Resources */,
+				69314A612234CAD200045EEE /* テキスト.png in Resources */,
+				69314A692234CAD200045EEE /* チェックシートのアイコン.png in Resources */,
+				69314A652234CAD200045EEE /* 目オフ.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,103 +9,133 @@
 import Foundation
 import RealmSwift
 
+//testのデータを格納
+class TestData:Object{
+    @objc dynamic var first:String = ""
+    let testArray = List<RememberWord>()
+    
+//    static let shared = testData()
+}
+
 class NotRememberWord:Object{
     @objc dynamic var word: String = ""
     @objc dynamic var wordMean: String = ""
     //日本時間に変更
-    @objc dynamic var created = Date(timeIntervalSinceNow: 9*60*60)
+    @objc dynamic var created = Date()
 }
 
 class RememberWord: Object {
     @objc dynamic var word: String = ""
     @objc dynamic var wordMean: String = ""
-    @objc dynamic var created = Date(timeIntervalSinceNow: 9*60*60)
+    @objc dynamic var created = Date()
+    //状態
+    @objc dynamic var dateStatus = "init"
+    //一度のみデータを入れる
+    @objc dynamic var isDayFinish:Bool = false
+    @objc dynamic var isWeekFinish:Bool = false
+    @objc dynamic var isMonthFinish:Bool = false
+
     //realmでは配列は使えない
     let tomorrow = List<Int>()
     let afterWeek = List<Int>()
     let afterMonth = List<Int>()
-    //状態
-    var dateStatus = "init"
     //１日後の値の取得
     //覚えたにした時にデータを作成
+    //let comps = DateComponents(day: 1)
     func afterOneDay(){
+        created = Date()
+
         let calendar = Calendar.current
-        let comps = DateComponents(day: 1)
+        let comps = DateComponents(second: 30)
         let nextDay = calendar.date(byAdding: comps, to: created)
         let year = calendar.component(.year, from: nextDay!)
         let month = calendar.component(.month, from: nextDay!)
         let day = calendar.component(.day, from: nextDay!)
         let hour = calendar.component(.hour, from: nextDay!)
         let minute = calendar.component(.minute, from: nextDay!)
-        let dateArray = [year,month,day,hour,minute]
+        let second = calendar.component(.second, from: nextDay!)
+        let dateArray = [year,month,day,hour,minute,second]
         for i in dateArray{
             tomorrow.append(i)
         }
         dateStatus = "day"
     }
-    
+    //let comps = DateComponents(day: 1)
     func isAfterOneDay() -> Bool{
         let calendar = Calendar.current
-        let comps = DateComponents(day: 1)
+        let comps = DateComponents(second: 30)
         let afterOneDay = calendar.date(byAdding: comps, to: created)
-        let today = Date(timeIntervalSinceNow: 9*60*60)
+        let today = Date()
         if afterOneDay! <= today{
-            return true
+            if !isDayFinish{
+                return true
+            }
         }
         return false
     }
 
     //一週間後の値の取得
     //テストで正解したらデータを作成
+//    let comps = DateComponents(day: 7)
     func afterOneWeek(){
         let calendar = Calendar.current
-        let comps = DateComponents(day: 7)
+        let comps = DateComponents(second: 60)
         let afterOneWeek = calendar.date(byAdding: comps, to: created)
         let year = calendar.component(.year, from: afterOneWeek!)
         let month = calendar.component(.month, from: afterOneWeek!)
         let day = calendar.component(.day, from: afterOneWeek!)
         let hour = calendar.component(.hour, from: afterOneWeek!)
         let minute = calendar.component(.minute, from: afterOneWeek!)
-        let dateArray = [year,month,day,hour,minute]
+        let second = calendar.component(.second, from: afterOneWeek!)
+        let dateArray = [year,month,day,hour,minute,second]
         for i in dateArray{
             afterWeek.append(i)
         }
         dateStatus = "week"
     }
+//    let comps = DateComponents(day: 7)
     func isAfterOneWeek() -> Bool{
         let calendar = Calendar.current
-        let comps = DateComponents(day: 7)
+        let comps = DateComponents(second: 60)
         let afterOneWeek = calendar.date(byAdding: comps, to: created)
-        let today = Date(timeIntervalSinceNow: 9*60*60)
+        let today = Date()
         if afterOneWeek! <= today{
-            return true
+            if !isWeekFinish{
+                return true
+            }
         }
         return false
     }
+    
     //一ヶ月後の値の取得
     //テストで正解したらデータを作成
+//        let comps = DateComponents(month: 1)
     func afterOneMonth(){
         let calendar = Calendar.current
-        let comps = DateComponents(month: 1)
+        let comps = DateComponents(second: 90)
         let afterOneMonth = calendar.date(byAdding: comps, to: created)
         let year = calendar.component(.year, from: afterOneMonth!)
         let month = calendar.component(.month, from: afterOneMonth!)
         let day = calendar.component(.day, from: afterOneMonth!)
         let hour = calendar.component(.hour, from: afterOneMonth!)
         let minute = calendar.component(.minute, from: afterOneMonth!)
-        let dateArray = [year,month,day,hour,minute]
+        let second = calendar.component(.second, from: afterOneMonth!)
+        let dateArray = [year,month,day,hour,minute,second]
         for i in dateArray{
             afterMonth.append(i)
         }
         dateStatus = "month"
     }
+//    let comps = DateComponents(month: 1)
     func isAfterOneMonth() -> Bool{
         let calendar = Calendar.current
-        let comps = DateComponents(month: 1)
+        let comps = DateComponents(second: 90)
         let afterOneMonth = calendar.date(byAdding: comps, to: created)
-        let today = Date(timeIntervalSinceNow: 9*60*60)
+        let today = Date()
         if afterOneMonth! <= today{
-            return true
+            if !isMonthFinish{
+                return true
+            }
         }
         return false
     }
@@ -115,7 +145,7 @@ class RememberWord: Object {
 class EndWord: Object {
     @objc dynamic var word: String = ""
     @objc dynamic var wordMean: String = ""
-    @objc dynamic var created = Date(timeIntervalSinceNow: 9*60*60)
+    @objc dynamic var created = Date()
 }
 
 //viewcontrollerからwordviewcontrollerに情報を伝達する
@@ -126,12 +156,5 @@ class PassData{
     var wordMean = ""
 
     static let shared = PassData()
-    private init(){}
-}
-//testのデータを格納
-class testData{
-    var testArray:[RememberWord] = []
-    
-    static let shared = testData()
     private init(){}
 }
