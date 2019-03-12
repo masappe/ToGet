@@ -11,18 +11,28 @@ import RealmSwift
 
 class CheckViewController: UIViewController {
 
+    @IBOutlet var textView: UITextView!
     @IBOutlet var checkDateLabel: UILabel!
     @IBOutlet weak var wordLabel: UILabel!
-    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet var checkButton: UIButton!
     let testData = try! Realm().objects(TestData.self)
 
     var tabViewDelegate: TabViewControllerDelegate!
     override func viewDidLoad() {
         super.viewDidLoad()
+        textView.isEditable = false
+        //ボタンの設定
+        checkButton.layer.borderWidth = 1
+        checkButton.layer.borderColor = UIColor.blue.cgColor
+        checkButton.tintColor = .blue
+        checkButton.backgroundColor = .white
+        checkButton.layer.cornerRadius = 15
         if testData[0].testArray.count == 0{
-            wordLabel.text = "確認するものはありません"
+            wordLabel.text = "確認終了"
+            textView.text = "現在確認すべき単語はありません"
         }else{
             let last = testData[0].testArray.count - 1
+            checkDateLabel.backgroundColor = .white
             switch testData[0].testArray[last].dateStatus{
             case "day":
                 checkDateLabel.text = "覚えてから１日経過"
@@ -34,7 +44,7 @@ class CheckViewController: UIViewController {
                 
             }
             wordLabel.text = testData[0].testArray[last].word
-            textLabel.text = testData[0].testArray[last].wordMean
+            textView.text = testData[0].testArray[last].wordMean
         }
         
     }
@@ -80,6 +90,7 @@ class CheckViewController: UIViewController {
             
             if testData[0].testArray.count > 0 {
                 let last = testData[0].testArray.count - 1
+                checkDateLabel.backgroundColor = .white
                 switch testData[0].testArray[last].dateStatus{
                 case "day":
                     checkDateLabel.text = "覚えてから１日経過"
@@ -91,10 +102,10 @@ class CheckViewController: UIViewController {
                     
                 }
                 wordLabel.text = testData[0].testArray[last].word
-                textLabel.text = testData[0].testArray[last].wordMean
+                textView.text = testData[0].testArray[last].wordMean
             }else{
                 wordLabel.text = "確認終了"
-                textLabel.text = ""
+                textView.text = "現在確認すべき単語はありません"
             }
         }
     }

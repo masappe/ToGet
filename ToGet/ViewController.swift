@@ -27,9 +27,11 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     var rememberWordData: Results<RememberWord>!
     var endWordData: Results<EndWord>!
     @IBOutlet weak var tabBar: UITabBar!
+    @IBOutlet var navBar: UINavigationBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         let realm = try! Realm()
         //createdを降順にソート
         notRememberWordData = realm.objects(NotRememberWord.self).sorted(byKeyPath: "created",ascending: false)
@@ -39,12 +41,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         tableView.dataSource = self
         tabBar.delegate = self
         
-    }
-    @IBAction func button(_ sender: Any) {
-        print(notRememberWordData)
-        print(rememberWordData)
-        print(endWordData)
-//        print(testData.shared.testArray)
     }
 
     //tableview内のセルをたっぷしたらwordviewに画面遷移
@@ -120,6 +116,8 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         let testData = try! Realm().objects(TestData.self)
         if testData[0].testArray.count > 0{
             tabBar.items![3].badgeValue = String(testData[0].testArray.count)
+        }else{
+            tabBar.items![3].badgeValue = nil
         }
         reloadTable()
 
@@ -149,6 +147,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 }
             }
             tableView.deleteRows(at: [indexPath], with: .right)
+            self.reloadTabBar()
         })
         delete.backgroundColor = .red
         //覚える→覚えた設定
@@ -181,6 +180,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 realm.delete(rememberWordData)
             }
             tableView.deleteRows(at: [indexPath], with: .right)
+            self.reloadTabBar()
         })
         back.backgroundColor = .blue
         //終了→覚える
