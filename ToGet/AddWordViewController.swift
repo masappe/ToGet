@@ -34,10 +34,6 @@ class AddWordViewController: UIViewController,UIScrollViewDelegate,UITextFieldDe
         
         //画面サイズの取得
         let viewSize = UIScreen.main.bounds.size
-
-//        navBar.barTintColor = .blue
-//        navBar.titleTextAttributes = [.foregroundColor:UIColor.white]
-//        navBar.tintColor = .white
         
         //ボタンの設定
         addButton.layer.borderWidth = 1

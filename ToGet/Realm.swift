@@ -13,14 +13,11 @@ import RealmSwift
 class TestData:Object{
     @objc dynamic var first:String = ""
     let testArray = List<RememberWord>()
-    
-//    static let shared = testData()
 }
 
 class NotRememberWord:Object{
     @objc dynamic var word: String = ""
     @objc dynamic var wordMean: String = ""
-    //日本時間に変更
     @objc dynamic var created = Date()
 }
 
@@ -41,12 +38,11 @@ class RememberWord: Object {
     let afterMonth = List<Int>()
     //１日後の値の取得
     //覚えたにした時にデータを作成
-    //let comps = DateComponents(day: 1)
     func afterOneDay(){
         created = Date()
 
         let calendar = Calendar.current
-        let comps = DateComponents(second: 30)
+        let comps = DateComponents(day: 1)
         let nextDay = calendar.date(byAdding: comps, to: created)
         let year = calendar.component(.year, from: nextDay!)
         let month = calendar.component(.month, from: nextDay!)
@@ -60,10 +56,9 @@ class RememberWord: Object {
         }
         dateStatus = "day"
     }
-    //let comps = DateComponents(day: 1)
     func isAfterOneDay() -> Bool{
         let calendar = Calendar.current
-        let comps = DateComponents(second: 30)
+        let comps = DateComponents(day: 1)
         let afterOneDay = calendar.date(byAdding: comps, to: created)
         let today = Date()
         if afterOneDay! <= today{
@@ -76,10 +71,9 @@ class RememberWord: Object {
 
     //一週間後の値の取得
     //テストで正解したらデータを作成
-//    let comps = DateComponents(day: 7)
     func afterOneWeek(){
         let calendar = Calendar.current
-        let comps = DateComponents(second: 60)
+        let comps = DateComponents(day: 7)
         let afterOneWeek = calendar.date(byAdding: comps, to: created)
         let year = calendar.component(.year, from: afterOneWeek!)
         let month = calendar.component(.month, from: afterOneWeek!)
@@ -93,10 +87,9 @@ class RememberWord: Object {
         }
         dateStatus = "week"
     }
-//    let comps = DateComponents(day: 7)
     func isAfterOneWeek() -> Bool{
         let calendar = Calendar.current
-        let comps = DateComponents(second: 60)
+        let comps = DateComponents(day: 7)
         let afterOneWeek = calendar.date(byAdding: comps, to: created)
         let today = Date()
         if afterOneWeek! <= today{
@@ -109,10 +102,9 @@ class RememberWord: Object {
     
     //一ヶ月後の値の取得
     //テストで正解したらデータを作成
-//        let comps = DateComponents(month: 1)
     func afterOneMonth(){
         let calendar = Calendar.current
-        let comps = DateComponents(second: 90)
+        let comps = DateComponents(month: 1)
         let afterOneMonth = calendar.date(byAdding: comps, to: created)
         let year = calendar.component(.year, from: afterOneMonth!)
         let month = calendar.component(.month, from: afterOneMonth!)
@@ -126,10 +118,9 @@ class RememberWord: Object {
         }
         dateStatus = "month"
     }
-//    let comps = DateComponents(month: 1)
     func isAfterOneMonth() -> Bool{
         let calendar = Calendar.current
-        let comps = DateComponents(second: 90)
+        let comps = DateComponents(month: 1)
         let afterOneMonth = calendar.date(byAdding: comps, to: created)
         let today = Date()
         if afterOneMonth! <= today{
@@ -157,18 +148,4 @@ class PassData{
 
     static let shared = PassData()
     private init(){}
-}
-
-extension UIColor {
-    convenience init(hex: String, alpha: CGFloat) {
-        let v = hex.map { String($0) } + Array(repeating: "0", count: max(6 - hex.count, 0))
-        let r = CGFloat(Int(v[0] + v[1], radix: 16) ?? 0) / 255.0
-        let g = CGFloat(Int(v[2] + v[3], radix: 16) ?? 0) / 255.0
-        let b = CGFloat(Int(v[4] + v[5], radix: 16) ?? 0) / 255.0
-        self.init(red: r, green: g, blue: b, alpha: min(max(alpha, 0), 1))
-    }
-    
-    convenience init(hex: String) {
-        self.init(hex: hex, alpha: 1.0)
-    }
 }

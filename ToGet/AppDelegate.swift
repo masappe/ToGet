@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         if testdata.count == 0{
             let testData:TestData = TestData()
             try! realm.write {
+                //データを全て削除
 //                realm.deleteAll()
                 realm.add(testData)
             }
@@ -246,17 +247,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-        // アプリが起動している間に通知を受け取った場合の処理を行う。
-        print("BBBBB")
-    }
-
-//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-//                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-//        // アプリがバックグラウンド状態の時に通知を受け取った場合の処理を行う。
-//        completionHandler(UIBackgroundFetchResult.newData)
-//        print("AAAAAA")
-//        UIApplication.shared.applicationIconBadgeNumber = 1
-//    }
 }
 
