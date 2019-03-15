@@ -58,7 +58,7 @@ class WordViewController: UIViewController {
     @IBAction func updateButton(_ sender: Any) {
         if textView.text == ""{
             //入力がない時のアラート
-            let alert = UIAlertController(title: "Error", message: "値が入力されてません", preferredStyle: .alert)
+            let alert = UIAlertController(title: "エラー", message: "単語の意味を追加してください", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(ok)
             present(alert, animated: true, completion: nil)

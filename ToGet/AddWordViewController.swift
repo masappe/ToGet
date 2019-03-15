@@ -173,12 +173,19 @@ class AddWordViewController: UIViewController,UIScrollViewDelegate,UITextFieldDe
     }
     //単語を追加
     @IBAction func insertWord(_ sender: Any) {
-        if ((addWordField.text == "")||(textView.text == "")){
+        if ((addWordField.text == "")&&(textView.text == "")){
             //入力がない時のアラート
-            let alert = UIAlertController(title: "Error", message: "値が入力されてません", preferredStyle: .alert)
+            let alert = UIAlertController(title: "エラー", message: "単語と単語の意味を追加してください", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(ok)
             present(alert, animated: true, completion: nil)
+        }else if ((addWordField.text == "")||(textView.text == "")){
+            //入力がない時のアラート
+            let alert = UIAlertController(title: "エラー", message: "単語か単語の意味が追加されていません", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
+
         }else{
             //単語の追加
             let realmData: NotRememberWord = NotRememberWord()
