@@ -20,6 +20,7 @@
 		698A81362224CDC800A37E02 /* WordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A81352224CDC800A37E02 /* WordViewController.swift */; };
 		698A81382225866200A37E02 /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A81372225866200A37E02 /* Realm.swift */; };
 		698A813A222591A800A37E02 /* AddWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698A8139222591A800A37E02 /* AddWordViewController.swift */; };
+		69CD756C225A287400D182CA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CD756B225A287400D182CA /* WebKit.framework */; };
 		957C8CAAF1D98DD9A1C0F8F6 /* Pods_ToGetUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA3D993C7DDAD3A2F7B6589A /* Pods_ToGetUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		698A81352224CDC800A37E02 /* WordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordViewController.swift; sourceTree = "<group>"; };
 		698A81372225866200A37E02 /* Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 		698A8139222591A800A37E02 /* AddWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordViewController.swift; sourceTree = "<group>"; };
+		69CD756B225A287400D182CA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C4FFBB1AFF352033938CADAF /* Pods_ToGetTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToGetTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7D18C2DD4FAD2ABD318FDE5 /* Pods-ToGet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToGet.debug.xcconfig"; path = "Target Support Files/Pods-ToGet/Pods-ToGet.debug.xcconfig"; sourceTree = "<group>"; };
 		DB220B12C1E62CDE139F0B12 /* Pods-ToGetUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToGetUITests.debug.xcconfig"; path = "Target Support Files/Pods-ToGetUITests/Pods-ToGetUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69CD756C225A287400D182CA /* WebKit.framework in Frameworks */,
 				4F3903DA7A51D8340CC3B4F7 /* Pods_ToGet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,6 +103,7 @@
 		5422BAC67C659897017979C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				69CD756B225A287400D182CA /* WebKit.framework */,
 				65BB40BC0A826A546BF19473 /* Pods_ToGet.framework */,
 				C4FFBB1AFF352033938CADAF /* Pods_ToGetTests.framework */,
 				EA3D993C7DDAD3A2F7B6589A /* Pods_ToGetUITests.framework */,
@@ -474,6 +478,7 @@
 		698A812A2224CA5400A37E02 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -535,6 +540,7 @@
 		698A812B2224CA5400A37E02 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -596,10 +602,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AN5V8WJ3QR;
 				INFOPLIST_FILE = ToGet/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.litech.ToGet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -617,10 +620,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AN5V8WJ3QR;
 				INFOPLIST_FILE = ToGet/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.litech.ToGet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

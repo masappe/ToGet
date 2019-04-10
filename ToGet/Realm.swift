@@ -42,7 +42,7 @@ class RememberWord: Object {
         created = Date()
 
         let calendar = Calendar.current
-        let comps = DateComponents(day: 1)
+        let comps = DateComponents(minute: 1)
         let nextDay = calendar.date(byAdding: comps, to: created)
         let year = calendar.component(.year, from: nextDay!)
         let month = calendar.component(.month, from: nextDay!)
@@ -58,7 +58,7 @@ class RememberWord: Object {
     }
     func isAfterOneDay() -> Bool{
         let calendar = Calendar.current
-        let comps = DateComponents(day: 1)
+        let comps = DateComponents(minute: 1)
         let afterOneDay = calendar.date(byAdding: comps, to: created)
         let today = Date()
         if afterOneDay! <= today{
@@ -73,7 +73,7 @@ class RememberWord: Object {
     //テストで正解したらデータを作成
     func afterOneWeek(){
         let calendar = Calendar.current
-        let comps = DateComponents(day: 7)
+        let comps = DateComponents(minute: 3)
         let afterOneWeek = calendar.date(byAdding: comps, to: created)
         let year = calendar.component(.year, from: afterOneWeek!)
         let month = calendar.component(.month, from: afterOneWeek!)
@@ -89,7 +89,7 @@ class RememberWord: Object {
     }
     func isAfterOneWeek() -> Bool{
         let calendar = Calendar.current
-        let comps = DateComponents(day: 7)
+        let comps = DateComponents(minute: 3)
         let afterOneWeek = calendar.date(byAdding: comps, to: created)
         let today = Date()
         if afterOneWeek! <= today{
@@ -104,7 +104,7 @@ class RememberWord: Object {
     //テストで正解したらデータを作成
     func afterOneMonth(){
         let calendar = Calendar.current
-        let comps = DateComponents(month: 1)
+        let comps = DateComponents(minute: 5)
         let afterOneMonth = calendar.date(byAdding: comps, to: created)
         let year = calendar.component(.year, from: afterOneMonth!)
         let month = calendar.component(.month, from: afterOneMonth!)
@@ -120,7 +120,7 @@ class RememberWord: Object {
     }
     func isAfterOneMonth() -> Bool{
         let calendar = Calendar.current
-        let comps = DateComponents(month: 1)
+        let comps = DateComponents(minute: 5)
         let afterOneMonth = calendar.date(byAdding: comps, to: created)
         let today = Date()
         if afterOneMonth! <= today{

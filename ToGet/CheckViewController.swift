@@ -62,19 +62,20 @@ class CheckViewController: UIViewController {
         }else{
             //チャック日付の更新
             let realm = try! Realm()
+            let last = testData[0].testArray.count - 1
             //filterで変数を使うときは%@を用いる
-            let data = realm.objects(RememberWord.self).filter("created == %@",testData[0].testArray[0].created)
-            
+            let data = realm.objects(RememberWord.self).filter("created == %@",testData[0].testArray[last].created)
+            print(data[0])
             if data[0].dateStatus == "day"{
                 //realmを変更するときはwriteの中で変更する
                 try! realm.write {
                     data[0].afterOneWeek()
-                    testData[0].testArray.remove(at: 0)
+                    testData[0].testArray.remove(at: last)
                 }
             }else if data[0].dateStatus == "week"{
                 try! realm.write {
                     data[0].afterOneMonth()
-                    testData[0].testArray.remove(at: 0)
+                    testData[0].testArray.remove(at: last)
                 }
             }else if data[0].dateStatus == "month"{
                 let endWordData: EndWord = EndWord()
@@ -86,6 +87,7 @@ class CheckViewController: UIViewController {
                     realm.delete(deleteData)
                 }
             }
+            print(testData[0].testArray)
             
             
             if testData[0].testArray.count > 0 {
@@ -106,6 +108,7 @@ class CheckViewController: UIViewController {
             }else{
                 wordLabel.text = "確認終了"
                 textView.text = "現在確認すべき単語はありません"
+                checkDateLabel.alpha = 0
             }
         }
     }

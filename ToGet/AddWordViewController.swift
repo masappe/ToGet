@@ -20,6 +20,7 @@ class AddWordViewController: UIViewController,UIScrollViewDelegate,UITextFieldDe
     @IBOutlet weak var wkWebView1: WKWebView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var addWordField: UITextField!
     @IBOutlet var navBar: UINavigationBar!
     @IBOutlet var pageControl: UIPageControl!
@@ -68,9 +69,19 @@ class AddWordViewController: UIViewController,UIScrollViewDelegate,UITextFieldDe
         //ScrollView
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
-        scrollView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 0).isActive = true
-        scrollView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: pageControl.topAnchor).isActive = true
+//        scrollView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 0).isActive = true
+        scrollView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        scrollView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor ,constant: 44 ).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -37).isActive = true
+        //ContentView
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
+        contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+//        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+//        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+//        contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
+//        contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
         //PageControl
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
@@ -133,6 +144,8 @@ class AddWordViewController: UIViewController,UIScrollViewDelegate,UITextFieldDe
     }
     //pagecontrolをたっぷした時の処理
     @IBAction func tapPageControl(_ sender: UIPageControl) {
+        print(contentView.layer.bounds.size)
+        print(scrollView.layer.bounds.size)
         scrollView.contentOffset.x = view.safeAreaLayoutGuide.layoutFrame.width * CGFloat(sender.currentPage)
     }
     //検索ボタン

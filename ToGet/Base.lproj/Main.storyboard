@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -208,6 +208,7 @@
                         <outlet property="addButton" destination="O0U-SJ-MEc" id="MiH-Qd-aOx"/>
                         <outlet property="addWordField" destination="wZA-6C-4YM" id="yrT-AW-OgZ"/>
                         <outlet property="backView" destination="LiS-pk-L3R" id="8MN-QF-FoY"/>
+                        <outlet property="contentView" destination="82h-iJ-4oT" id="rhJ-3i-KiO"/>
                         <outlet property="navBar" destination="z8c-hT-BFn" id="cGV-1v-vac"/>
                         <outlet property="pageControl" destination="5qt-Ep-QPw" id="NzC-21-cyB"/>
                         <outlet property="scrollView" destination="Qmg-Id-aJP" id="7mf-Fe-65H"/>
@@ -316,17 +317,17 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CqB-wo-3J6">
-                                <rect key="frame" x="112.5" y="94" width="150" height="20"/>
+                                <rect key="frame" x="57.5" y="94" width="260" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="Bk5-1z-46e"/>
-                                    <constraint firstAttribute="height" constant="20" id="hdu-eF-zlg"/>
+                                    <constraint firstAttribute="width" constant="260" id="Bk5-1z-46e"/>
+                                    <constraint firstAttribute="height" constant="30" id="hdu-eF-zlg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9IM-xe-6EW">
-                                <rect key="frame" x="57.5" y="144" width="260" height="30"/>
+                                <rect key="frame" x="57.5" y="154" width="260" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="GqO-qi-iew"/>
@@ -337,7 +338,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FUY-PX-6v8">
-                                <rect key="frame" x="0.0" y="204" width="375" height="343"/>
+                                <rect key="frame" x="0.0" y="214" width="375" height="333"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -374,10 +375,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="チェック" width="22.5" height="22.5"/>
-        <image name="終了" width="22.5" height="22.5"/>
-        <image name="覚えた" width="22.5" height="22.5"/>
-        <image name="覚える" width="22.5" height="22.5"/>
+        <image name="チェック" width="30" height="30"/>
+        <image name="終了" width="30" height="30"/>
+        <image name="覚えた" width="30" height="30"/>
+        <image name="覚える" width="30" height="30"/>
         <image name="覚える.png" width="30" height="30"/>
     </resources>
 </document>
