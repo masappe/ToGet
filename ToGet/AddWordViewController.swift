@@ -14,18 +14,19 @@ import WebKit
 
 class AddWordViewController: UIViewController,UIScrollViewDelegate,UITextFieldDelegate,WKNavigationDelegate {
 
-    @IBOutlet var backView: UIView!
-    @IBOutlet weak var wkWebView3: WKWebView!
-    @IBOutlet weak var wkWebView2: WKWebView!
-    @IBOutlet weak var wkWebView1: WKWebView!
-    @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var addWordField: UITextField!
+    let backView = UIView()
+    let wkWebView1 = WKWebView()
+    let wkWebView2 = WKWebView()
+    let wkWebView3 = WKWebView()
+    let scrollView = UIScrollView()
+    let addButton = UIButton(type: .system)
+    let searchButton = UIButton(type: .system)
+    let textView = UITextView()
+    let addWordField = UITextField()
+//    @IBOutlet weak var textView: UITextView!
+//    @IBOutlet weak var addWordField: UITextField!
     @IBOutlet var navBar: UINavigationBar!
     @IBOutlet var pageControl: UIPageControl!
-    @IBOutlet var addButton: UIButton!
-    @IBOutlet var searchButton: UIButton!
     
     var tableViewDelegate: TableViewControllerDelegate!
     
@@ -33,83 +34,87 @@ class AddWordViewController: UIViewController,UIScrollViewDelegate,UITextFieldDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //画面サイズの取得
-        let viewSize = UIScreen.main.bounds.size
-        
-        //ボタンの設定
-        addButton.layer.borderWidth = 1
-        addButton.layer.borderColor = UIColor.blue.cgColor
-        addButton.tintColor = .blue
-        addButton.layer.cornerRadius = 15
-        searchButton.layer.borderWidth = 1
-        searchButton.layer.borderColor = UIColor.blue.cgColor
-        searchButton.tintColor = .blue
-        searchButton.layer.cornerRadius = 15
-        //textViewの枠線の設定
-        textView.layer.borderColor = UIColor.lightGray.cgColor
-        textView.layer.borderWidth = 1
         //page数の決定
         pageControl.numberOfPages = 4
-        //frame表示領域，contentsize内容領域
-        //scrollviewが不変的だった
-//        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * CGFloat(pageControl.numberOfPages), height: scrollView.frame.size.height)
-        //デバイスの画面の4倍のコンテント
-        scrollView.contentSize = CGSize(width: viewSize.width * CGFloat(pageControl.numberOfPages), height: viewSize.height - 44 - 37 - 20)
         scrollView.delegate = self
         addWordField.delegate = self
         wkWebView1.navigationDelegate = self
         wkWebView2.navigationDelegate = self
         wkWebView3.navigationDelegate = self
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         
+        //画面サイズの取得
+        let safeArea = view.safeAreaLayoutGuide.layoutFrame
+        let height = safeArea.height - 37 - 44
+        scrollView.isPagingEnabled = true
+        scrollView.frame = CGRect(x: 0, y: safeArea.origin.y
+            + 44, width: safeArea.width, height: height)
+        //デバイスの画面の4倍のコンテント
+        scrollView.contentSize = CGSize(width: safeArea.width * CGFloat(pageControl.numberOfPages), height: height)
+        view.addSubview(scrollView)
+        //一つ上のレイヤーに対してどの位置に配置するのかを記入する
+        backView.frame = CGRect(x: safeArea.width * 0, y: 0, width: safeArea.width, height: height)
+        wkWebView1.frame = CGRect(x: safeArea.width * 1, y: 0, width: safeArea.width
+            , height: height)
+        wkWebView2.frame = CGRect(x: safeArea.width * 2, y: 0, width: safeArea.width
+            , height: height)
+        wkWebView3.frame = CGRect(x: safeArea.width * 3, y: 0, width: safeArea.width
+            , height: height)
+        var url = "https://ja.wikipedia.org/wiki/UDP"
+        var encURL = URL(string: url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
+        wkWebView1.load(URLRequest(url: encURL))
+        url = "https://ja.wikipedia.org/wiki/UDP"
+        encURL = URL(string: url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
+        wkWebView2.load(URLRequest(url: encURL))
+        url = "https://ja.wikipedia.org/wiki/UDP"
+        encURL = URL(string: url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)!
+        wkWebView3.load(URLRequest(url: encURL))
+        
+        scrollView.addSubview(backView)
+        scrollView.addSubview(wkWebView1)
+        scrollView.addSubview(wkWebView2)
+        scrollView.addSubview(wkWebView3)
+        
+        //ボタンの設定
+        addButton.setTitle("追加する", for: .normal)
+        addButton.layer.borderWidth = 1
+        addButton.layer.borderColor = UIColor.blue.cgColor
+        addButton.tintColor = .blue
+        addButton.layer.cornerRadius = 15
+        addButton.addTarget(self, action: #selector(insertWord(_:)), for: UIControl.Event.touchUpInside)
+        searchButton.setTitle("検索する", for: .normal)
+        searchButton.layer.borderWidth = 1
+        searchButton.layer.borderColor = UIColor.blue.cgColor
+        searchButton.tintColor = .blue
+        searchButton.layer.cornerRadius = 15
+        searchButton.addTarget(self, action: #selector(searchButton(_:)), for: .touchUpInside)
+        //textViewの枠線の設定
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.layer.borderWidth = 1
+        //textfieldの設定
+        addWordField.layer.borderColor = UIColor.lightGray.cgColor
+        addWordField.layer.borderWidth = 1
+
+        backView.addSubview(addButton)
+        backView.addSubview(searchButton)
+        backView.addSubview(textView)
+        backView.addSubview(addWordField)
+
+
         //autolayout
         //NavigationBar
         navBar.translatesAutoresizingMaskIntoConstraints = false
         navBar.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
         navBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        //ScrollView
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
-//        scrollView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor, constant: 0).isActive = true
-        scrollView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
-        scrollView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor ,constant: 44 ).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -37).isActive = true
-        //ContentView
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
-        contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
-//        contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-//        contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-//        contentView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
-//        contentView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
+        navBar.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         //PageControl
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
+//        pageControl.topAnchor.constraint(equalTo: backView.bottomAnchor).isActive = true
         pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        //BackView
-        backView.translatesAutoresizingMaskIntoConstraints = false
-        backView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        backView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
-        backView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
-        backView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
-        //WebView1
-        wkWebView1.translatesAutoresizingMaskIntoConstraints = false
-        wkWebView1.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        wkWebView1.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
-        wkWebView1.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
-        wkWebView1.leftAnchor.constraint(equalTo: backView.rightAnchor).isActive = true
-        //WebView2
-        wkWebView2.translatesAutoresizingMaskIntoConstraints = false
-        wkWebView2.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        wkWebView2.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
-        wkWebView2.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
-        wkWebView2.leftAnchor.constraint(equalTo: wkWebView1.rightAnchor).isActive = true
-        //WebView3
-        wkWebView3.translatesAutoresizingMaskIntoConstraints = false
-        wkWebView3.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        wkWebView3.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
-        wkWebView3.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
-        wkWebView3.leftAnchor.constraint(equalTo: wkWebView2.rightAnchor).isActive = true
+        pageControl.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         //AddWordField
         addWordField.translatesAutoresizingMaskIntoConstraints = false
         addWordField.topAnchor.constraint(equalTo: backView.topAnchor, constant: 30).isActive = true
@@ -134,8 +139,12 @@ class AddWordViewController: UIViewController,UIScrollViewDelegate,UITextFieldDe
         textView.trailingAnchor.constraint(equalTo: backView.trailingAnchor).isActive = true
         textView.topAnchor.constraint(equalTo: searchButton.bottomAnchor, constant: 30).isActive = true
         textView.bottomAnchor.constraint(equalTo: backView.bottomAnchor,constant: -10).isActive = true
-        
 
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        print(navBar.frame)
+        print(scrollView.frame)
     }
     //scrollが終わった後の処理，ページの移動を行う
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -144,12 +153,10 @@ class AddWordViewController: UIViewController,UIScrollViewDelegate,UITextFieldDe
     }
     //pagecontrolをたっぷした時の処理
     @IBAction func tapPageControl(_ sender: UIPageControl) {
-        print(contentView.layer.bounds.size)
-        print(scrollView.layer.bounds.size)
         scrollView.contentOffset.x = view.safeAreaLayoutGuide.layoutFrame.width * CGFloat(sender.currentPage)
     }
     //検索ボタン
-    @IBAction func searchButton(_ sender: Any) {
+    @objc func searchButton(_ sender: Any) {
         if (addWordField.text == ""){
             // 入力がない時のアラート
             let alert = UIAlertController(title: "Error", message: "値が入力されてません", preferredStyle: .alert)
@@ -185,7 +192,7 @@ class AddWordViewController: UIViewController,UIScrollViewDelegate,UITextFieldDe
         }
     }
     //単語を追加
-    @IBAction func insertWord(_ sender: Any) {
+    @objc func insertWord(_ sender: Any) {
         if ((addWordField.text == "")&&(textView.text == "")){
             //入力がない時のアラート
             let alert = UIAlertController(title: "エラー", message: "単語と単語の意味を追加してください", preferredStyle: .alert)
