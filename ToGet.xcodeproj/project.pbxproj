@@ -136,16 +136,9 @@
 		698A81062224CA4D00A37E02 /* ToGet */ = {
 			isa = PBXGroup;
 			children = (
-				698A81072224CA4D00A37E02 /* AppDelegate.swift */,
-				698A81372225866200A37E02 /* Realm.swift */,
-				698A810B2224CA4D00A37E02 /* Main.storyboard */,
-				693149FD22335D7000045EEE /* ViewController.swift */,
-				69314A3D2233A8DC00045EEE /* CheckViewController.swift */,
-				698A8139222591A800A37E02 /* AddWordViewController.swift */,
-				698A81352224CDC800A37E02 /* WordViewController.swift */,
-				698A810E2224CA5300A37E02 /* Assets.xcassets */,
-				698A81102224CA5300A37E02 /* LaunchScreen.storyboard */,
-				698A81132224CA5300A37E02 /* Info.plist */,
+				69A9C315227544A90050510C /* Other */,
+				69A9C316227544B10050510C /* Model */,
+				69A9C314227544970050510C /* Controller */,
 			);
 			path = ToGet;
 			sourceTree = "<group>";
@@ -166,6 +159,37 @@
 				698A81292224CA5400A37E02 /* Info.plist */,
 			);
 			path = ToGetUITests;
+			sourceTree = "<group>";
+		};
+		69A9C314227544970050510C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				693149FD22335D7000045EEE /* ViewController.swift */,
+				69314A3D2233A8DC00045EEE /* CheckViewController.swift */,
+				698A8139222591A800A37E02 /* AddWordViewController.swift */,
+				698A81352224CDC800A37E02 /* WordViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		69A9C315227544A90050510C /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				698A81072224CA4D00A37E02 /* AppDelegate.swift */,
+				698A810B2224CA4D00A37E02 /* Main.storyboard */,
+				698A810E2224CA5300A37E02 /* Assets.xcassets */,
+				698A81102224CA5300A37E02 /* LaunchScreen.storyboard */,
+				698A81132224CA5300A37E02 /* Info.plist */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		69A9C316227544B10050510C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				698A81372225866200A37E02 /* Realm.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		B34018D11DEE25D67916E103 /* Pods */ = {
