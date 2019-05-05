@@ -136,6 +136,7 @@
 		698A81062224CA4D00A37E02 /* ToGet */ = {
 			isa = PBXGroup;
 			children = (
+				698A81132224CA5300A37E02 /* Info.plist */,
 				69A9C315227544A90050510C /* Other */,
 				69A9C316227544B10050510C /* Model */,
 				69A9C314227544970050510C /* Controller */,
@@ -179,7 +180,6 @@
 				698A810B2224CA4D00A37E02 /* Main.storyboard */,
 				698A810E2224CA5300A37E02 /* Assets.xcassets */,
 				698A81102224CA5300A37E02 /* LaunchScreen.storyboard */,
-				698A81132224CA5300A37E02 /* Info.plist */,
 			);
 			path = Other;
 			sourceTree = "<group>";
